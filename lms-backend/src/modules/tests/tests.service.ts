@@ -1,7 +1,7 @@
 import { prisma } from '@/config/db';
 import { badRequest, conflict, forbidden, notFound } from '@/utils/apiError';
 
-import type { Prisma } from '@prisma/client';
+import type { InputJsonValue, JsonValue } from '@prisma/client/runtime/library';
 import type { Role } from '@/types/auth';
 
 export interface RequestingUser {
@@ -11,7 +11,7 @@ export interface RequestingUser {
 
 type QuestionInput = {
   text: string;
-  options: Prisma.InputJsonValue;
+  options: InputJsonValue;
   answer: string;
   points: number;
   order: number;
@@ -139,7 +139,7 @@ export async function getTestById(testId: string, user: RequestingUser) {
 
   return {
     ...test,
-    questions: test.questions.map(({ answer: _answer, ...question }) => question)
+    questions: test.questions.map(({ answer: _answer, ...question }: { id: string; text: string; options: JsonValue; answer: string; points: number; order: number }) => question)
   };
 }
 

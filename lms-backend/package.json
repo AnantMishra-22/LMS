@@ -14,7 +14,7 @@
     "sqs:mock": "tsx scripts/local-sqs-mock.ts",
     "lambda:api": "tsx src/lambda/api.ts",
     "lambda:worker": "tsx src/lambda/submissionWorker.ts",
-    "build": "tsc -p tsconfig.json && tsc-alias -p tsconfig.json",
+    "build": "prisma generate && tsc -p tsconfig.json && tsc-alias -p tsconfig.json",
     "build:compiler": "npm run build --prefix compiler-service",
     "start": "node dist/src/server.js",
     "postinstall": "prisma generate",
