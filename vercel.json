@@ -1,6 +1,5 @@
 {
-  "framework": "vite",
-  "installCommand": "npm ci --prefix ed-realm",
+  "installCommand": "npm ci --prefix ed-realm --include=dev",
   "buildCommand": "npm run build --prefix ed-realm",
   "outputDirectory": "ed-realm/build",
   "rewrites": [
