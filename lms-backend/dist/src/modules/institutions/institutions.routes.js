@@ -1,0 +1,17 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.institutionsRouter = void 0;
+const express_1 = require("express");
+const zod_1 = require("zod");
+const auth_1 = require("../../middleware/auth");
+const rbac_1 = require("../../middleware/rbac");
+const validate_1 = require("../../middleware/validate");
+const institutions_controller_1 = require("./institutions.controller");
+exports.institutionsRouter = (0, express_1.Router)();
+const idParams = zod_1.z.object({ id: zod_1.z.string().uuid() });
+const bodySchema = zod_1.z.object({ name: zod_1.z.string().min(1) });
+exports.institutionsRouter.get('/', auth_1.authenticate, (0, rbac_1.only)('admin'), institutions_controller_1.institutionsController.list);
+exports.institutionsRouter.post('/', auth_1.authenticate, (0, rbac_1.only)('admin'), (0, validate_1.validate)(bodySchema), institutions_controller_1.institutionsController.create);
+exports.institutionsRouter.get('/:id', auth_1.authenticate, (0, rbac_1.only)('admin'), (0, validate_1.validate)({ params: idParams }), institutions_controller_1.institutionsController.get);
+exports.institutionsRouter.patch('/:id', auth_1.authenticate, (0, rbac_1.only)('admin'), (0, validate_1.validate)({ params: idParams, body: bodySchema }), institutions_controller_1.institutionsController.update);
+exports.institutionsRouter.delete('/:id', auth_1.authenticate, (0, rbac_1.only)('admin'), (0, validate_1.validate)({ params: idParams }), institutions_controller_1.institutionsController.delete);
