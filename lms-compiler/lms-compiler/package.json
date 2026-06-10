@@ -1,0 +1,20 @@
+{
+  "name": "lms-compiler",
+  "version": "1.0.0",
+  "description": "Multi-language compiler engine for LMS platform. Supports Python, Java, C, and C++. Designed for AWS Lambda deployment.",
+  "main": "index.js",
+  "type": "commonjs",
+  "scripts": {
+    "test":        "node tests/smoke.test.js",
+    "test:python": "node index.js python tests/fixtures/hello.py",
+    "test:java":   "node index.js java   tests/fixtures/Hello.java",
+    "test:c":      "node index.js c      tests/fixtures/hello.c",
+    "test:cpp":    "node index.js cpp    tests/fixtures/hello.cpp"
+  },
+  "keywords": ["compiler", "lms", "lambda", "python", "java", "c", "cpp"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "readline-sync": "^1.4.10"
+  }
+}
