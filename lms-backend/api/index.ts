@@ -1,4 +1,19 @@
-import { createApp } from '../src/app';
+// Register tsconfig path aliases at runtime BEFORE loading any app code.
+// Vercel's bundler does not resolve @/ aliases from tsconfig.json so we
+// patch Node's module resolver here. Must use require() — not import —
+// because ES module imports are hoisted and would load src/app before
+// register() runs.
+/* eslint-disable @typescript-eslint/no-require-imports */
+const tsconfigPaths = require('tsconfig-paths');
+const path = require('path');
+
+tsconfigPaths.register({
+  baseUrl: path.resolve(__dirname, '..'),
+  paths: { '@/*': ['./src/*'] },
+});
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const { createApp } = require('../src/app');
 
 /**
  * Vercel serverless entry point.
